@@ -21,12 +21,6 @@ public class User {
 		this.age = age;
 		this.postHistory = new ArrayList<>();
 	}
-	
-	public User(String username, String password) {
-		this.username = username;
-		this.password = password;
-		this.postHistory = new ArrayList<>();
-	}
 
 	//GETTERS:
 	public String getUsername() {

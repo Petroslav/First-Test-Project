@@ -11,6 +11,7 @@ import model.User;
 import model.UsersManager;
 
 public class UserDAO {
+	private static final String UPDATE_USER_INFO = "UPDATE users SET first_name = ?, last_name = ?, age = ? WHERE username = ?";
 	private static final String SAVE_USER_TO_DB = "INSERT INTO users (username, passwrd, first_name, last_name, age) VALUES(?, ?, ?, ?, ?)";
 	private static final String GET_ALL_USERS = "SELECT username, passwrd, first_name, last_name, age FROM users";
 	
@@ -21,7 +22,7 @@ public class UserDAO {
 		return instance;
 	}
 	
-	public Set<User> getAllUsers(){
+	public synchronized Set<User> getAllUsers(){
 		Set<User> users = new HashSet<>();
 		try {
 			Statement state = DBManager.getInstance().getConnection().createStatement();
@@ -35,15 +36,15 @@ public class UserDAO {
 						userset.getInt("age")
 						));
 			}
+			System.out.println("Users loaded successfully.");
 		} catch (SQLException e) {
 			System.out.println("Could not fetch users!");
 			e.printStackTrace();
 		}
-		System.out.println("Users loaded successfully.");
 		return users;
 	}
 	
-	public void saveUser(User u){
+	public synchronized void saveUser(User u){
 		try {
 			PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(SAVE_USER_TO_DB);
 			ps.setString(1, u.getUsername());
@@ -56,6 +57,24 @@ public class UserDAO {
 			System.out.println("User saved to DB");
 		} catch (SQLException e) {
 			System.out.println("Could not save user to DB");
+			e.printStackTrace();
+		}
+	}
+	
+	public synchronized void updateUserInfo(User u, String fn, String ln, int age){
+		try{
+			PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(UPDATE_USER_INFO);
+			ps.setString(1, fn);
+			ps.setString(2, ln);
+			ps.setInt(3, age);
+			ps.setString(4, u.getUsername());
+			ps.executeUpdate();
+			UsersManager.getInstance().updateUser(u, fn, ln, age);
+			System.out.println(u.getUsername() + " has been updated.");
+		}
+		catch (SQLException e) {
+			System.out.println("Could not update user");
+			e.printStackTrace();
 		}
 	}
 }

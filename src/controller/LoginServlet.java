@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.UsersManager;
+import model.db.UserDAO;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -26,7 +27,8 @@ public class LoginServlet extends HttpServlet {
 		String p = request.getParameter("pass");
 		
 		if(UsersManager.getInstance().validateLogin(u, p)){
-			RequestDispatcher rd = request.getRequestDispatcher("grill.html");
+			request.getSession().setAttribute("user", UsersManager.getInstance().getUser(u));
+			RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
 			rd.forward(request, response);
 		}
 		else{

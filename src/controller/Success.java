@@ -17,7 +17,7 @@ public class Success extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		RequestDispatcher ra = request.getRequestDispatcher("grill.html");
+		RequestDispatcher ra = request.getRequestDispatcher("profile.jsp");
 		ra.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
