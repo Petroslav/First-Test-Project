@@ -1,3 +1,4 @@
+<%@page import="model.Comment"%>
 <%@page import="model.User"%>
 <%@page import="model.PostManager"%>
 <%@page import="model.Post"%>
@@ -28,17 +29,42 @@
 	%>
 	<%
 		for(Post p : PostManager.getInstance().getAllPosts().values()){
+			request.setAttribute("delPost", p);
 			out.print("<table><tr><td><h2>" + p.getTitle() + "</h2></td></tr>");
 			out.print("<tr><td><h4>" + p.getContent() + "</h4></td></tr>");
 			out.print("<tr><td>" + p.getOp().getUsername() + "     " + p.getPostDate() + "</td></tr></table>");
+			out.print("<table>");
 			if(session.getAttribute("user") != null){
-				session.setAttribute("delPost", p);
-				out.print(p.getOp().getUsername().equalsIgnoreCase(((User) session.getAttribute("user")).getUsername()) ? 
-					"<form action=\"DeletePostServlet\" method=\"POST\">"
-					+ "<input type=\"hidden\" value=\"delPost\" name=\"postid\" />"
-					+ "<input type=\"submit\" value=\"Delete Post\"></form></td></tr></table>" : "</table>");
-			}	
-			out.print("<br /><br />");
+				if(p.getOp().getUsername().equalsIgnoreCase(((User) session.getAttribute("user")).getUsername())){
+					out.print("<form action=\"DeletePostServlet\" method=\"POST\">"
+							+ "<input type=\"hidden\" name=\"postID\" value=\"" + p.getId() + "\">"
+							+ "<input type=\"submit\" value=\"Delete post\"><br />"
+							+ "</form>");					
+				}
+			}
+			if(p.getComments().size() > 0){
+				out.print("<br /> <h4>Comments: </h4> <br />");
+				for(Comment c : p.getComments()){
+					if(p.getComments().size() == 0) {
+						continue;
+					}
+					out.print("<tr><td>" + c.getAuthor().getUsername() + "</td> <td>" + c.getContent() + "</td></tr>");
+					out.print("<tr><td> Posted on: " + c.getPostDate() + "<br />");
+					if(c.getAuthor().getUsername().equalsIgnoreCase(((User) session.getAttribute("user")).getUsername())){
+						out.print("<form action=\"DeleteCommentServlet\" method=\"POST\">"
+								+ "<input type=\"hidden\" name=\"commentID\" value=\"" + c.getId() + "\">"
+								+ "<input type=\"submit\" value=\"Delete Comment\"></form>");
+					}
+				}
+			}
+			if(session.getAttribute("user") != null){
+				out.print("<form action = \"NewCommentServlet\" method=\"POST\" >");
+				out.print("<input type=\"hidden\" name=\"postID\" value=\"" + p.getId() + "\" <br />");
+				out.print("Comment: <br />  <textarea name=\"content\" rows=\"9\" maxlength=\"300\"/></textarea>"
+							+ "<br /><input type=\"submit\" value=\"Post Comment\" /></form>");
+				out.print("<br /> <br />");
+			}
+			
 		}
 	%>
 </body>

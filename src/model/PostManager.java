@@ -32,8 +32,8 @@ public class PostManager {
 		return allPosts;
 	}
 	
-	public synchronized Post getPost(int p){
-		return this.allPosts.get(p);
+	public synchronized Post getPost(int pID){
+		return this.allPosts.get(pID);
 	}
 	
 	public synchronized void savePost(Post p){
@@ -43,6 +43,9 @@ public class PostManager {
 	
 	public synchronized void delPost(Post p){
 		PostDAO.getInstance().delPost(p);
+		for(Comment c : p.getComments()){
+			CommentManager.getInstance().deleteComment(c);
+		}
 		this.allPosts.remove(p.getId());
 	}
 	

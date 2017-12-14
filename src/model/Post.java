@@ -42,37 +42,21 @@ public class Post {
 	public ArrayList<Comment> getComments() {
 		return comments;
 	}
-
-
-
 	public String getContent() {
 		return content;
 	}
-
-
-
 	public String getTitle() {
 		return title;
 	}
-
-
-
 	public User getOp() {
 		return op;
 	}
-
-
-
 	public Date getPostDate() {
 		return postDate;
 	}
-
-
-
 	public int getLikes() {
 		return likes;
 	}
-	
 	public int getDislikes() {
 		return dislikes;
 	}
@@ -81,20 +65,19 @@ public class Post {
 	//Methods:
 	public void likeThread(){
 		this.likes++;
-	}
-	
+	}	
 	public void unlikeThread(){
 		this.likes--;
-	}
-	
+	}	
 	public void addComment(Comment c){
 		this.comments.add(c);
-	}
-	
+	}	
+	public void removeComment(Comment c){
+		this.comments.remove(c);
+	}	
 	public void setId(int id) {
 		this.id = id;
-	}
-	
+	}	
 	public int getId() {
 		return id;
 	}

@@ -28,11 +28,10 @@ public class LoginServlet extends HttpServlet {
 		
 		if(UsersManager.getInstance().validateLogin(u, p)){
 			request.getSession().setAttribute("user", UsersManager.getInstance().getUser(u));
-			RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("main.jsp");
 			rd.forward(request, response);
 		}
 		else{
-
 			RequestDispatcher rd = request.getRequestDispatcher("Rip");
 			rd.forward(request, response);
 		}

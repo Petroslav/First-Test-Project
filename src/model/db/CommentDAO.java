@@ -64,8 +64,8 @@ public class CommentDAO {
 			ps = DBManager.getInstance().getConnection().prepareStatement(SAVE_COMMENT, Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, c.getId());
 			ps.setString(2, c.getAuthor().getUsername());
-			ps.setString(3, c.getContent());
-			ps.setInt(4, c.getParentPost().getId());
+			ps.setInt(3, c.getParentPost().getId());
+			ps.setString(4, c.getContent());
 			ps.setLong(5, c.getPostDate().getTime());
 			ps.setInt(6, c.getLikes());
 			ps.setInt(7, c.getDislikes());
