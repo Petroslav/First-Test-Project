@@ -1,4 +1,5 @@
 <%@page import="model.Comment"%>
+<%@page import="model.CommentManager"%>
 <%@page import="model.User"%>
 <%@page import="model.PostManager"%>
 <%@page import="model.Post"%>
@@ -8,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>PLS GO</title>
 </head>
 <body>
 	<%
@@ -28,6 +29,8 @@
 		
 	%>
 	<%
+		PostManager.getInstance();
+		CommentManager.getInstance();
 		for(Post p : PostManager.getInstance().getAllPosts().values()){
 			request.setAttribute("delPost", p);
 			out.print("<table><tr><td><h2>" + p.getTitle() + "</h2></td></tr>");
@@ -50,7 +53,7 @@
 					}
 					out.print("<tr><td>" + c.getAuthor().getUsername() + "</td> <td>" + c.getContent() + "</td></tr>");
 					out.print("<tr><td> Posted on: " + c.getPostDate() + "<br />");
-					if(c.getAuthor().getUsername().equalsIgnoreCase(((User) session.getAttribute("user")).getUsername())){
+					if(session.getAttribute("user") != null && c.getAuthor().getUsername().equalsIgnoreCase(((User) session.getAttribute("user")).getUsername())){
 						out.print("<form action=\"DeleteCommentServlet\" method=\"POST\">"
 								+ "<input type=\"hidden\" name=\"commentID\" value=\"" + c.getId() + "\">"
 								+ "<input type=\"submit\" value=\"Delete Comment\"></form>");

@@ -14,11 +14,6 @@ public class PostManager {
 		this.allPosts = new ConcurrentHashMap<>();
 		
 		for(Post p : PostDAO.getInstance().loadPosts()){
-			for(Comment c : CommentManager.getInstance().getAllComments().values()){
-				if(c.getAuthor().getUsername().equalsIgnoreCase(p.getOp().getUsername())){
-					p.addComment(c);
-				}
-			}
 			this.allPosts.put(p.getId(), p);
 		}
 	}

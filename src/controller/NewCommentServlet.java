@@ -15,7 +15,6 @@ import model.UsersManager;
 @WebServlet("/NewCommentServlet")
 public class NewCommentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Reached new comment servlet");
 		User u = (User) request.getSession().getAttribute("user");
 		int pID;
 		if(request.getParameter("postID").equals("")){
@@ -28,7 +27,6 @@ public class NewCommentServlet extends HttpServlet {
 		Comment c = new Comment(u, content, pID);
 		CommentManager.getInstance().saveComment(c);
 		request.getRequestDispatcher("main.jsp").forward(request, response);
-		System.out.println("Done with new comment");
 	}
 
 }

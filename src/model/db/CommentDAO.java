@@ -1,5 +1,6 @@
 package model.db;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ public class CommentDAO {
 
 	private static final String DELETE_COMMENT = "DELETE FROM comments WHERE id = ?";
 	private static final String SAVE_COMMENT = "INSERT INTO comments(id, c_author, c_parent, c_content, c_post_date, c_likes, c_dislikes) VALUES(?, ?, ?, ?, ?, ?, ?)";
-	private static final String PULL_COMMENTS = "SELECT id, c_author, c_content, c_post_date, c_likes, c_dislikes FROM comments ORDER BY id";
+	private static final String PULL_COMMENTS = "SELECT id, c_author, c_parent, c_content, c_post_date, c_likes, c_dislikes FROM comments";
 	
 	private static CommentDAO instance;
 	
@@ -25,20 +26,13 @@ public class CommentDAO {
 		return instance;
 	}
 	
-	public synchronized Set<Comment> loadComments(){
-		Set<Comment> comments = new HashSet<>();
+	public synchronized ArrayList<Comment> loadComments(){
+		ArrayList<Comment> comments = new ArrayList<>();
 		try {
 			Statement query = DBManager.getInstance().getConnection().createStatement();
 			ResultSet allComments = query.executeQuery(PULL_COMMENTS);
-			SimpleDateFormat datef = new SimpleDateFormat();
-			Date postDate = null;
 			while(allComments.next()){
-				try {
-					postDate = datef.parse(allComments.getString("c_post_date"));
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 				comments.add(new Comment(
 						allComments.getInt("id"),
 						allComments.getString("c_author"),

@@ -1,11 +1,8 @@
 package model;
 
-import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 
 import model.db.CommentDAO;
-import model.db.PostDAO;
-
 public class CommentManager {
 
 	private static CommentManager instance;
@@ -16,6 +13,7 @@ public class CommentManager {
 		this.allComments = new ConcurrentHashMap<>();
 		for(Comment c : CommentDAO.getInstance().loadComments()){
 			allComments.put(c.getId(), c);
+			c.getParentPost().addComment(c);
 		}
 	}
 	

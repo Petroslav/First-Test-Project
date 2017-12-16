@@ -13,7 +13,7 @@
    		response.addHeader("Pragma", "no-cache"); 
    		response.addDateHeader ("Expires", 0);
   	%>
-	<% out.println("<h1>" + ((User)session.getAttribute("user")).getUsername() + "'s profile</h1>" + "<br /> <br />");%>
+	<% out.println("<h1>Hello, " + ((User)session.getAttribute("user")).getUsername() + "!</h1>" + "<br /> <br />");%>
 	<br />
 	<% 
 		User user = ((User)session.getAttribute("user"));
@@ -28,7 +28,6 @@
 		<input type="submit" value="Logout" />
 	</form>
 </body>
-
 	<style>
 		a.button {
 		    -webkit-appearance: button;

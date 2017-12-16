@@ -1,27 +1,47 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en" >
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Log in</title>
+      <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-
-	<% 
+<body>	
+	<%
 		if(session.getAttribute("user") != null){
 			response.sendRedirect("profile.jsp");			
 		}
 	%>
-	<h1>Hello comrade</h1>
-	<form method="post" action="LoginServlet">
-		<h3>Log in:</h3>
-		<fieldset>
-			Username: <input type="text" name="username" required />
-			Password: <input type="password" name="pass" required />
-			<input type="submit" value="Login" />		
-		</fieldset>
-		<h2>No account? <a href="reg.html">Register here</a></h2>
-	</form>
+  <div class="wrapper">
+	<div class="container">
+		<h1>Welcome</h1>
+		
+		<form action="LoginServlet" method="POST" class="form" id="login">
+			<input type="text" name="username" placeholder="Username">
+			<input type="password" name="pass" placeholder="Password">
+			<input type="submit" value="Login" id="login-button">
+		</form>
+	</div>
+	
+	<ul class="bg-bubbles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script  src="js/index.js"></script>
+
 </body>
 </html>

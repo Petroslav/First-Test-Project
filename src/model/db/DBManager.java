@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import model.Comment;
+import model.CommentManager;
+import model.PostManager;
+import model.UsersManager;
+
 public class DBManager {
 	private static final String DB_IP = "localhost";
 	private static final String DB_PORT = "3306";

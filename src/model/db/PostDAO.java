@@ -17,7 +17,7 @@ public class PostDAO {
 
 	private static final String DELETE_POST = "DELETE FROM posts WHERE id = ?";
 	private static final String SAVE_TO_DB = "INSERT INTO posts(p_author, p_title, p_content, p_likes, p_dislikes, p_post_date) VALUES(?, ?, ?, ?, ?, ?)";
-	private static final String LOAD_COMMENTS = "SELECT p_author, p_title, p_content, p_likes, p_dislikes, p_post_date, id  FROM posts";
+	private static final String LOAD_POSTS = "SELECT p_author, p_title, p_content, p_likes, p_dislikes, p_post_date, id  FROM posts";
 	private static PostDAO instance;
 	
 	public synchronized static PostDAO getInstance(){
@@ -30,7 +30,7 @@ public class PostDAO {
 		Statement query;
 		try {
 			query = DBManager.getInstance().getConnection().createStatement();
-			ResultSet posts = query.executeQuery(LOAD_COMMENTS);
+			ResultSet posts = query.executeQuery(LOAD_POSTS);
 			while(posts.next()){
 				allPosts.add(new Post(
 						posts.getString("p_author"),
@@ -42,7 +42,7 @@ public class PostDAO {
 						posts.getInt("id")
 						));
 			}
-			System.out.println("Posts loaded successfully");
+			System.out.println("Posts loaded successfully.");
 		} catch (SQLException e) {
 			System.out.println("Could not load posts from DB");
 			e.printStackTrace();

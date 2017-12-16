@@ -11,15 +11,6 @@ public class Comment {
 	private int likes;
 	private int dislikes;
 	private int id;
-
-//	public Comment(String username, int parent, String content, Date date, int likes, int dislikes){
-//		this.author = UsersManager.getInstance().getUser(username);
-//		this.parentPost = PostManager.getInstance().getPost(parent);
-//		this.content = content;
-//		this.postDate = date;
-//		this.likes = likes;
-//		this.dislikes = dislikes;
-//	}
 	
 	public Comment(User author, String content, int pID){
 		this.author = author;
@@ -67,12 +58,8 @@ public class Comment {
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
-	
-		
 }
