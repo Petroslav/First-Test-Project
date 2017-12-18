@@ -8,9 +8,10 @@
 </head>
 <body>
 
-	<form action = "PostServlet" method = "POST">
+	<form action = "PostServlet" method = "POST" enctype="multipart/form-data">
 		Title:<br />
 		<input type = "text" name = "title" />
+		<input type = "file" name ="pic" placeholder = "..."/>
 		<textarea name = "content" rows = "9" maxlength = "5000"/></textarea>
 		<input type="submit" value = "Make post" />
 	</form>

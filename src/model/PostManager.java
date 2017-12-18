@@ -1,5 +1,7 @@
 package model;
 
+import java.io.File;
+import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
 import model.db.PostDAO;
@@ -37,9 +39,15 @@ public class PostManager {
 	}
 	
 	public synchronized void delPost(Post p){
-		PostDAO.getInstance().delPost(p);
-		for(Comment c : p.getComments()){
+		for(Iterator<Comment> it = p.getComments().iterator(); it.hasNext();){
+			Comment c = it.next();
+			it.remove();
 			CommentManager.getInstance().deleteComment(c);
+		}
+		PostDAO.getInstance().delPost(p);
+		if(p.getPic().length() > 5){ 
+			File pic = new File(p.getPic());
+			pic.delete();
 		}
 		this.allPosts.remove(p.getId());
 	}

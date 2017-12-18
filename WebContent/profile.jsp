@@ -14,6 +14,7 @@
    		response.addDateHeader ("Expires", 0);
   	%>
 	<% out.println("<h1>Hello, " + ((User)session.getAttribute("user")).getUsername() + "!</h1>" + "<br /> <br />");%>
+	<% out.print("<img src=\"UpicServlet?user=" + ((User)session.getAttribute("user")).getUsername() + "\""); %>
 	<br />
 	<% 
 		User user = ((User)session.getAttribute("user"));

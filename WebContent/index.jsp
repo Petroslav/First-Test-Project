@@ -19,10 +19,10 @@
 	<div class="container">
 		<h1>Welcome</h1>
 		
-		<form action="LoginServlet" method="POST" class="form" id="login">
+		<form action="LoginServlet" method="POST" class="form">
 			<input type="text" name="username" placeholder="Username">
 			<input type="password" name="pass" placeholder="Password">
-			<input type="submit" value="Login" id="login-button">
+			<input type="submit" value="Login">
 		</form>
 	</div>
 	

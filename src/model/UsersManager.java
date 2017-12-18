@@ -56,10 +56,11 @@ public class UsersManager {
 		this.allUsers.put(u.getUsername().toLowerCase(), u);
 	}
 
-	public synchronized void updateUser(User u, String fn, String ln, int age) {
+	public synchronized void updateUser(User u, String fn, String ln, int age, String pic) {
 		u.setFirstName(fn);
 		u.setLastName(ln);
 		u.setAge(age);
+		u.setPic(pic);
 	}
 
 }

@@ -8,6 +8,7 @@ public class Post {
 	private ArrayList<Comment> comments;
 	private int id;
 	private String content;
+	private String pic;
 	private String title;
 	private User op;
 	private Date postDate;
@@ -18,13 +19,25 @@ public class Post {
 		this.title = title;
 		this.content = content;
 		this.op = op;
+		this.pic = "";
+		this.likes = 0;	
+		this.dislikes = 0;
+		this.postDate = new Date();
+		this.comments = new ArrayList<Comment>();
+	}
+	
+	public Post(String title, User op, String pic) {
+		this.title = title;
+		this.pic = pic;
+		this.op = op;
+		this.content = "";
 		this.likes = 0;
 		this.dislikes = 0;
 		this.postDate = new Date();
 		this.comments = new ArrayList<Comment>();
 	}
 	
-	public Post(String author, String title, String content, int likes, int dislikes, long date_millis, int id){
+	public Post(String author, String title, String content, int likes, int dislikes, long date_millis, int id, String pic){
 		this.op = UsersManager.getInstance().getUser(author);
 		this.title = title;
 		this.content = content;
@@ -32,6 +45,7 @@ public class Post {
 		this.dislikes = dislikes;
 		this.postDate = new Date(date_millis);
 		this.id = id;
+		this.pic = pic;
 		this.comments = new ArrayList<Comment>();
 		
 	}
@@ -80,5 +94,13 @@ public class Post {
 	}	
 	public int getId() {
 		return id;
+	}
+	
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+	
+	public String getPic() {
+		return pic;
 	}
 }

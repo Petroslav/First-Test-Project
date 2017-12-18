@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -16,45 +15,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import model.Post;
-import model.PostManager;
 import model.User;
 import model.UsersManager;
-import model.db.PostDAO;
 
-
-@WebServlet("/PostServlet")
+/**
+ * Servlet implementation class UpdateUserPicServlet
+ */
+@WebServlet("/UpdateUserPicServlet")
 @MultipartConfig
-public class PostServlet extends HttpServlet {
-	
-	private final static String SAVE_DIR = "C:/Users/Luffy/Desktop/TESTPICS/POSTPIC";
+public class UpdateUserPicServlet extends HttpServlet {
+	private final static String PIC_DIR = "C:/Users/Luffy/Desktop/TESTPICS/USERPICS";
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User op = (User) request.getSession().getAttribute("user");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		if(op == null) {
-			request.getRequestDispatcher("index.jsp");
-		}
-		Post p = null;
-		p = new Post(title, content, op);
-		if(p != null) PostManager.getInstance().savePost(p);
-		
+		User user = UsersManager.getInstance().getUser(((User)request.getSession().getAttribute("user")).getUsername());
 		Part filePart = request.getPart("pic");
 	    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
 	    InputStream fileContent = filePart.getInputStream();
 	    
-	    File save = new File(SAVE_DIR);
+	    File save = new File(PIC_DIR);
 	    if(!save.exists()){
 	    	save.mkdir();
 	    }
-	    File pics = new File(save, "post-" + p.getId() + "-" + fileName);
+	    File pics = new File(save, user.getUsername() + "-profilepic-" + fileName);
 	    System.out.println("wtf: " + pics.getAbsolutePath());
 	    System.out.println("FileName : " + fileName);
 	    Files.copy(fileContent, pics.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		p.setPic(pics.getPath());
-		PostDAO.getInstance().addPicToDB(p);
-		request.getRequestDispatcher("main.jsp").forward(request, response);
-		
+	    user.setPic(pics.getPath());
+	    UsersManager.getInstance().updateUser(user, user.getFirstName(), user.getLastName(), user.getAge(), user.getPic());
+	    request.getRequestDispatcher("profile.jsp").forward(request, response);
 	}
+
 }

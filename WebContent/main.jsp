@@ -34,6 +34,7 @@
 		for(Post p : PostManager.getInstance().getAllPosts().values()){
 			request.setAttribute("delPost", p);
 			out.print("<table><tr><td><h2>" + p.getTitle() + "</h2></td></tr>");
+			out.print("<tr><td><img src=\"PpicServlet?pic=" + p.getId() + "\" alt=\"pic\" height=\"330\" width=\"330\"></td></tr>");
 			out.print("<tr><td><h4>" + p.getContent() + "</h4></td></tr>");
 			out.print("<tr><td>" + p.getOp().getUsername() + "     " + p.getPostDate() + "</td></tr></table>");
 			out.print("<table>");

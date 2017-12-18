@@ -16,7 +16,7 @@
 	<% out.println("<h1>" + ((User)session.getAttribute("user")).getUsername() + "'s profile</h1>" + "<br /> <br />");%>
 	<br />
 	
-	<form action="UpdateServlet" method="POST">
+	<form action="UpdateServlet" method="POST" >
 	<%
 	User user = ((User)session.getAttribute("user"));
 	out.println("<input type=\"text\" value =\"" + user.getFirstName() + "\" name = \"fn\" /><br />");
@@ -24,8 +24,13 @@
 	out.println("<input type=\"text\" value =\"" + (user.getAge() == 0 ? "" : user.getAge()) + "\" name = \"age\" /><br />");
 	%>
 		<input type="submit" value="Save" />
-		<a href="profile.jsp" class="button">Cancel</a>
 	</form>
+	
+	<form action="UpdateUserPicServlet" method="POST" enctype="multipart/form-data">
+		<input type="file" name="pic" placeholder="..."/> <br />
+		<input type="submit" value="Save" />
+	</form>
+	<a href="profile.jsp" class="button">Cancel</a>
 </body>
 	<style>
 		a.button {
