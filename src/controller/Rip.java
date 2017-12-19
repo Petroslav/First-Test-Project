@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Rip extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("reg.html").forward(request, response);		
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 }

@@ -27,7 +27,7 @@
 	</form>
 	
 	<form action="UpdateUserPicServlet" method="POST" enctype="multipart/form-data">
-		<input type="file" name="pic" placeholder="..."/> <br />
+		<input type="file" name="pic" /> <br />
 		<input type="submit" value="Save" />
 	</form>
 	<a href="profile.jsp" class="button">Cancel</a>

@@ -11,7 +11,7 @@ import model.User;
 import model.UsersManager;
 
 public class UserDAO {
-	private static final String UPDATE_USER_INFO = "UPDATE users SET first_name = ?, last_name = ?, age = ? pic = ? WHERE username = ?";
+	private static final String UPDATE_USER_INFO = "UPDATE users SET first_name = ?, last_name = ?, age = ?, pic = ? WHERE username = ?";
 	private static final String SAVE_USER_TO_DB = "INSERT INTO users (username, passwrd, first_name, last_name, age, pic) VALUES(?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_USERS = "SELECT username, passwrd, first_name, last_name, age, pic FROM users";
 	
@@ -72,7 +72,6 @@ public class UserDAO {
 			ps.setString(4, pic);
 			ps.setString(5, u.getUsername());
 			ps.executeUpdate();
-			UsersManager.getInstance().updateUser(u, fn, ln, age, pic);
 			System.out.println(u.getUsername() + " has been updated.");
 		}
 		catch (SQLException e) {

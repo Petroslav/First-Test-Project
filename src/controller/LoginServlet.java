@@ -25,14 +25,13 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String u = request.getParameter("username");
 		String p = request.getParameter("pass");
-		
-		if(UsersManager.getInstance().validateLogin(u, p)){
-			request.getSession().setAttribute("user", UsersManager.getInstance().getUser(u));
-			RequestDispatcher rd = request.getRequestDispatcher("main.jsp");
+		if(u == null || u.equals("") || p.equals("") || p == null || !UsersManager.getInstance().validateLogin(u, p)){
+			RequestDispatcher rd = request.getRequestDispatcher("Rip");
 			rd.forward(request, response);
 		}
 		else{
-			RequestDispatcher rd = request.getRequestDispatcher("Rip");
+			request.getSession().setAttribute("user", UsersManager.getInstance().getUser(u));
+			RequestDispatcher rd = request.getRequestDispatcher("main.jsp");
 			rd.forward(request, response);
 		}
 	}
