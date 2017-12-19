@@ -57,6 +57,7 @@ public class UsersManager {
 	}
 
 	public synchronized void updateUser(User u, String fn, String ln, int age, String pic) {
+		UserDAO.getInstance().updateUserInfo(u, fn, ln, age, pic);
 		u.setFirstName(fn);
 		u.setLastName(ln);
 		u.setAge(age);

@@ -33,9 +33,9 @@ public class UpicServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("user");
 		User user = UsersManager.getInstance().getUser(username);
-		if(!user.getPic().equals("")){
+		if(user.getPic() == null) return;
+		if(user.getPic() != null || !user.getPic().equals("")){
 			returnProfilePic(user, response);
 		}
-		else return;
 	}
 }

@@ -17,6 +17,7 @@ import javax.servlet.http.Part;
 
 import model.User;
 import model.UsersManager;
+import model.db.UserDAO;
 
 /**
  * Servlet implementation class UpdateUserPicServlet

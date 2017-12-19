@@ -12,8 +12,8 @@ import model.UsersManager;
 
 public class UserDAO {
 	private static final String UPDATE_USER_INFO = "UPDATE users SET first_name = ?, last_name = ?, age = ? pic = ? WHERE username = ?";
-	private static final String SAVE_USER_TO_DB = "INSERT INTO users (username, passwrd, first_name, last_name, age) VALUES(?, ?, ?, ?, ?)";
-	private static final String GET_ALL_USERS = "SELECT username, passwrd, first_name, last_name, age FROM users";
+	private static final String SAVE_USER_TO_DB = "INSERT INTO users (username, passwrd, first_name, last_name, age, pic) VALUES(?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_USERS = "SELECT username, passwrd, first_name, last_name, age, pic FROM users";
 	
 	private static UserDAO instance;
 	
@@ -33,7 +33,8 @@ public class UserDAO {
 						userset.getString("passwrd"),
 						userset.getString("first_name"),
 						userset.getString("last_name"),
-						userset.getInt("age")
+						userset.getInt("age"),
+						userset.getString("pic")
 						));
 			}
 			System.out.println("Users loaded successfully.");
@@ -52,6 +53,7 @@ public class UserDAO {
 			ps.setString(3, u.getFirstName());
 			ps.setString(4, u.getLastName());
 			ps.setInt(5, u.getAge());
+			ps.setString(6, u.getPic());
 			ps.executeUpdate();
 			UsersManager.getInstance().registerNewUser(u);
 			System.out.println("User saved to DB");

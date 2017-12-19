@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<title>Insert title here</title>
+</head>
+<body>
+<div class="header">
+<h1 class="logo">Fake9GAG</h1>
+<h3 class="username">USERNAME</h3>
+</div>
+<div class="post">
+	<h1 class="post-title">POST TITLE</h1>
+	<hr />
+	<img src="http://cdn.skim.gs/images/weird-cat-behavior_c4r8xi/25-random-cat-behaviors-finally-explained" alt="post-title" class="post-content"> <!-- POST IMAGE -->
+	<div class="post-footer">
+				<span class="post-author" title="post-date">POSTER</span>
+				<button class="btn btn-del post-button">DELETE POST</button>
+	</div>
+	<form action="NewCommentServlet" class="comment-form">
+	<input type="hidden" name="postID" value="POST ID FROM JSP" />
+	<textarea rows="5" cols="50" class="comment-postbox"></textarea>
+	<div class="postbox-button-footer">
+		<input type="submit" class="btn btn-new" value="Post">
+	</div>
+	</form>
+	<ul class="comments">
+		<li class="comment">
+			<img src="https://www.biography.com/.image/t_share/MTE4MDAzNDEwNTU1MDc4MTU4/adolf-hitler-9340144-1-402.jpg" alt="username" class="comment-author-avatar" />
+		<div class="comment-contents-wrapper">
+			<div class="comment-header">
+				<span><span class="comment-author">POSTER</span>
+				<span class="comment-date">DATE</span></span>
+			</div>
+			<p class="comment-content">COMMENT CONTENT GOES HERE</p>
+		</div>	
+		</li>
+	</ul>
+</div>
+</body>
+</html>
